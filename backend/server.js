@@ -8,6 +8,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { errorHandler } = require("./middleware/error");
 const router = require("./routes/router");
+const userRouter = require("./routes/userRouter");
 
 // app.use(cors({credentials:true,origin:"http://localhost:5173"}))
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(cors());
 
 //Routes
 app.use("/api", router);
+app.use("/api", userRouter);
 
 //error-middleware
 app.use(errorHandler);

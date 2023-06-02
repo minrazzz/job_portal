@@ -22,7 +22,7 @@ const userRegister = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 //user-loginapi
@@ -84,7 +84,9 @@ const userProfile = async (req, res, next) => {
       success: true,
       user,
     });
-  } catch (error) {}
+  } catch (error) {
+    return next(error);
+  }
 };
 
 module.exports = {

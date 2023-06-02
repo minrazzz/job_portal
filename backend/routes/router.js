@@ -7,10 +7,13 @@ const {
 } = require("../handlers/userHandler");
 const { isAuthenticated } = require("../middleware/authenticate");
 const Router = express.Router();
-//api /register ||login|| logout
-Router.post("/user/register", userRegister);
-Router.post("/user/login", userLogin);
-Router.get("/user/logout", userLogout);
-Router.get("/me", isAuthenticated, userProfile);
+// /api/register
+Router.post("/register", userRegister);
+// /api/login
+Router.post("/login", userLogin);
+// /api/logout
+Router.get("/logout", userLogout);
+// /api/profile
+Router.get("/profile", isAuthenticated, userProfile);
 
 module.exports = Router;

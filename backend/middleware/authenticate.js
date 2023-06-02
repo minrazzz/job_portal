@@ -12,13 +12,8 @@ const isAuthenticated = async (req, res, next) => {
       return next(new ErrorResponse("token not found", 401));
     }
     const tokenInfo = await verifyToken(token);
-    // console.log(tokenInfo.data.email);
-    // console.log(tokenInfo);
-    const user = await userModel.findOne({
-      token,
-      email: tokenInfo.data.email,
-    });
-    // console.log(user);
+    user = await userModel.findById(tokenInfo.data.user_id);
+
     if (!user) {
       return next(new ErrorResponse("user not found", 401));
     }
@@ -29,6 +24,19 @@ const isAuthenticated = async (req, res, next) => {
     return next(error);
   }
 };
+
+//authorization
+const isAdmin = (req, res, next) => {
+  try {
+    if (req.user.role === 0) {
+      return next(new ErrorResponse("Access denied,you must be an admin", 401));
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   isAuthenticated,
+  isAdmin,
 };
