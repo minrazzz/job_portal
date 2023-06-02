@@ -75,8 +75,21 @@ const userLogout = (req, res) => {
   });
 };
 
+//profile_info
+const userProfile = async (req, res, next) => {
+  try {
+    const user = await userModel.findOne(req.user._id).select("-password");
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {}
+};
+
 module.exports = {
   userRegister,
   userLogin,
   userLogout,
+  userProfile,
 };

@@ -1,4 +1,6 @@
 var jwt = require("jsonwebtoken");
+const { userModel } = require("../models/userModel");
+const { nextTick } = require("process");
 require("dotenv").config();
 
 module.exports = {
@@ -9,9 +11,9 @@ module.exports = {
     return token;
   },
 
-  verifyToken: function (token) {
+  verifyToken: async function (token, req) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log(decoded);
+    // req.user = await userModel.findById(decoded.id);
     return decoded;
   },
 };
