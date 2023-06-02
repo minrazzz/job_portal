@@ -1,7 +1,13 @@
 const express = require("express");
-const { signing } = require("../handlers/userHandler");
-const router = express.Router();
+const {
+  userRegister,
+  userLogin,
+  userLogout,
+} = require("../handlers/userHandler");
+const Router = express.Router();
+//api /register ||login|| logout
+Router.post("/user/register", userRegister);
+Router.post("/user/login", userLogin);
+Router.get("/user/logout", userLogout);
 
-//auth routes
-router.get("/", signing);
-module.exports = router;
+module.exports = Router;

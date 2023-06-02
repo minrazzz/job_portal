@@ -10,12 +10,12 @@ const errorHandler = (err, req, res, next) => {
       error = new ErrorResponse(message, 404);
     }
     //mongoose duplicate value
-    if (err.name === "CastError") {
+    if (err.code === 11000) {
       const message = "Duplicate field value entered";
       error = new ErrorResponse(message, 400);
     }
     //mongoose validation error
-    if (err.name === "CastError") {
+    if (err.name === "ValidationError") {
       const message = Object.values(err.errors).map((val) => " " + val.message);
       error = new ErrorResponse(message, 400);
     }
