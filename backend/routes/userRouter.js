@@ -3,6 +3,7 @@ const {
   allUsers,
   singleUser,
   editUser,
+  deleteUser,
 } = require("../handlers/userInfoHandler");
 const { isAuthenticated, isAdmin } = require("../middleware/authenticate");
 const Router = express.Router();
@@ -14,7 +15,7 @@ Router.get("/allUsers", isAuthenticated, isAdmin, allUsers);
 Router.get("/singleUser/:id", isAuthenticated, singleUser);
 // /api/user/edit/id
 Router.put("/user/edit/:id", isAuthenticated, editUser);
-// /api/user/delete/id
-Router.put("/user/delete/:id", isAuthenticated, editUser);
+// /api/admin/user/delete/id
+Router.delete("/admin/user/delete/:id", isAuthenticated, isAdmin, deleteUser);
 
 module.exports = Router;

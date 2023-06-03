@@ -1,5 +1,6 @@
 const { userModel } = require("../models/userModel");
 const ErrorResponse = require("../utils/errorResponse");
+const { createToken } = require("../utils/utils");
 
 //loading all usersInfo
 const allUsers = async (req, res, next) => {
@@ -30,6 +31,7 @@ const allUsers = async (req, res, next) => {
 const singleUser = async (req, res, next) => {
   try {
     const user = await userModel.findById(req.params.id);
+
     if (!user) {
       return next(new ErrorResponse("Invalid id", 400));
     }
@@ -66,7 +68,6 @@ const deleteUser = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "user deleted succesfully",
-      user,
     });
   } catch (error) {
     console.log(error);
@@ -76,4 +77,5 @@ module.exports = {
   allUsers,
   singleUser,
   editUser,
+  deleteUser,
 };

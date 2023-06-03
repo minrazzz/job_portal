@@ -41,7 +41,7 @@ const userLogin = async (req, res, next) => {
       return next(new ErrorResponse("Invalid Credentials", 400));
     }
     // createtoken;
-    const token = createToken({
+    const token = await createToken({
       data: {
         user_id: user._id,
         name: user.name,
@@ -49,15 +49,13 @@ const userLogin = async (req, res, next) => {
       },
     });
     user.token = token;
-    res.cookie("auth", token, { maxAge: 60 * 60 * 1000 });
     await user.save();
-
+    res.cookie("auth ", token, { maxAge: 60 * 60 * 1000 });
     res.json({
       success: true,
       data: {
         token,
         user_id: user.id,
-
         email: user.email,
       },
     });
