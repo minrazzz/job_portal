@@ -1,7 +1,9 @@
+html,
 body {
   overflow-wrap: normal;
 
   overflow-x: hidden;
+  height: 100%;
 }
 * {
   margin: 0;

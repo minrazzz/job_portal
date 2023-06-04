@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("mernTheme") ?? "light"
+  );
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("mernTheme", theme);
+  }, [theme]);
+  const handleTheme = () => {
+    {
+      console.log("hello");
+    }
+
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
   return (
     <>
-      <div className="navbar bg-[#047E01] flex px-4 py-2 items-center justify-between rounded-sm shadow-md">
+      <div className="navbar dark:bg-[#1E2936] bg-[#047E01] flex px-4 py-2 items-center justify-between rounded-sm shadow-md ">
         <div className="logo flex items-center gap-x-5">
           <NavLink
             className="font-lilita text-2xl text-white hover:font-semibold"
@@ -48,13 +66,24 @@ const Navbar = () => {
           <div className="links flex gap-3">
             <NavLink
               className="text-white hover:font-semibold hover:transition-all"
-              to="/register"
+              to="/login"
             >
-              Register
-            </NavLink>
-            <NavLink className="text-white" to="/login">
               Login
             </NavLink>
+          </div>
+          <div className="icons">
+            {theme === "dark" ? (
+              <div>
+                <i
+                  className="fa-solid fa-sun dark:text-white"
+                  onClick={handleTheme}
+                ></i>
+              </div>
+            ) : (
+              <div>
+                <i className="fa-solid fa-moon" onClick={handleTheme}></i>
+              </div>
+            )}
           </div>
           <div class="profile relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
             <svg
