@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(
@@ -22,17 +22,17 @@ const Navbar = () => {
   };
   return (
     <>
-      <div className="navbar dark:bg-[#1E2936] bg-[#047E01] flex px-4 py-2 items-center justify-between rounded-sm shadow-md ">
+      <div className="navbar dark:bg-[#1E2936] bg-[#047E01] flex px-5 py-2 items-center justify-between rounded-sm shadow-md ">
         <div className="logo flex items-center gap-x-5">
-          <NavLink
+          <Link
             className="font-lilita text-2xl text-white hover:font-semibold"
             to="/"
           >
             Job-seeker
-          </NavLink>
+          </Link>
           <div className="job flex gap-x-5 text-white">
-            <NavLink to="/job">Jobs</NavLink>
-            <NavLink to="/contact">Contact Us</NavLink>
+            <Link to="/job">Jobs</Link>
+            <Link to="/contact">Contact Us</Link>
           </div>
         </div>
         <div className="right-box link mr-3 flex items-center gap-9">
@@ -64,24 +64,27 @@ const Navbar = () => {
             </form>
           </div>
           <div className="links flex gap-3">
-            <NavLink
+            <Link
               className="text-white hover:font-semibold hover:transition-all"
               to="/login"
             >
               Login
-            </NavLink>
+            </Link>
           </div>
           <div className="icons">
             {theme === "dark" ? (
               <div>
                 <i
-                  className="fa-solid fa-sun dark:text-white"
+                  className="fa-solid fa-sun text-white"
                   onClick={handleTheme}
                 ></i>
               </div>
             ) : (
               <div>
-                <i className="fa-solid fa-moon" onClick={handleTheme}></i>
+                <i
+                  className="fa-solid fa-moon text-white"
+                  onClick={handleTheme}
+                ></i>
               </div>
             )}
           </div>

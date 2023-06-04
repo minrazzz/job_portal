@@ -7,7 +7,10 @@ export default {
   ],
   darkMode: "class",
   theme: {
-    fontFamily: { lilita: ["Lilita One", "cursive"] },
+    fontFamily: {
+      lilita: ["Lilita One", "cursive"],
+      fair: ["Playfair", "serif"],
+    },
     extend: {},
   },
   plugins: [require("flowbite/plugin")],

@@ -1,20 +1,45 @@
-import { useState } from "react";
-
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Navbar from "./layout/Navbar";
 import Home from "./pages/Home";
 import { Footer } from "./layout/Footer";
+// import { Login } from "./component/Login";
+import "./App.css";
+import Register from "./component/Register";
+import Layout from "./layout/Layout";
+import { Login } from "./component/Login";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+      ],
+    },
+  ]);
   return (
     <>
-      <div className=" dark:bg-[#111827]  main-wrapper min-h-screen w-screen text-center">
-        <main className=" max-w-screen-xl mx-auto ">
-          <Navbar />
-
-          <Home />
-          <Footer />
+      <div className=" dark:bg-[#111827]  main-wrapper max-h-screen max-w-full ">
+        <main className=" max-w-screen-xl static mx-auto ">
+          <div>
+            <RouterProvider router={router} />
+          </div>
         </main>
       </div>
     </>
