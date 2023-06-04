@@ -1,0 +1,9 @@
+body {
+  overflow-wrap: normal;
+
+  overflow-x: hidden;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
