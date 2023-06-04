@@ -8,9 +8,9 @@ import Home from "./pages/Home";
 import { Footer } from "./layout/Footer";
 // import { Login } from "./component/Login";
 import "./App.css";
-import Register from "./component/Register";
+import Register from "./pages/Register";
 import Layout from "./layout/Layout";
-import { Login } from "./component/Login";
+import { Login } from "./pages/Login";
 
 function App() {
   const router = createBrowserRouter([
@@ -35,8 +35,8 @@ function App() {
   ]);
   return (
     <>
-      <div className=" dark:bg-[#111827]  main-wrapper max-h-screen max-w-full ">
-        <main className=" max-w-screen-xl static mx-auto ">
+      <div className=" dark:bg-[#111827]  main-wrapper min-h-screen max-w-full ">
+        <main className=" max-w-screen-xl min-h-screen  mx-auto ">
           <div>
             <RouterProvider router={router} />
           </div>
