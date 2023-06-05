@@ -1,4 +1,5 @@
 import React from "react";
+
 import { NavLink } from "react-router-dom";
 
 export const Login = () => {
@@ -32,7 +33,7 @@ export const Login = () => {
           </button>
         </div>
         <div className="Register mx-auto text-center flex flex-col gap-1 dark:text-slate-400">
-          <p className="">Don't have an account ?</p>
+          <p className="">Already have an account</p>
           <NavLink
             className="hover:font-bold hover:transition-all text-[#057E01] dark:text-white"
             to="/register"
