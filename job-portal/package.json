@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@redux-devtools/extension": "^3.2.5",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.7",
     "formik": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
     "react-router-dom": "^6.11.2",
     "yup": "^1.2.0"
   },

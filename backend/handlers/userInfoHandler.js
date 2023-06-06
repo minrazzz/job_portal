@@ -15,7 +15,7 @@ const allUsers = async (req, res, next) => {
       .select("-password")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
-    res.status(401).json({
+    res.status(200).json({
       success: true,
       users,
       page,

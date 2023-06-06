@@ -76,6 +76,7 @@ const userLogout = (req, res) => {
 //profile_info
 const userProfile = async (req, res, next) => {
   try {
+    console.log(req.user);
     const user = await userModel.findOne(req.user._id).select("-password");
 
     res.status(200).json({

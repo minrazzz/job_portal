@@ -47,7 +47,7 @@ const Register = () => {
     <>
       <form
         action=""
-        className="shadow-lg mx-auto max-w-sm pt-1 shadow-lg  pb-3 px-5 max-h dark:shadow-2xl dark:bg-[#1E2936] mt-20"
+        className="shadow-md mx-auto max-w-sm pt-1  pb-3 px-5 max-h dark:shadow-2xl dark:bg-[#1E2936] mt-20"
         onSubmit={formik.handleSubmit}
       >
         <h1 className="text-3xl font-fair text-[#057E01] font-bold text-center mb-4 dark:text-white py-3">
