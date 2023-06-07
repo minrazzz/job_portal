@@ -21,8 +21,8 @@ module.exports = {
   //image validation
   validationImage: async function (mimetype, res) {
     try {
-      if (!mimetype.startsWith("application/pdf")) {
-        return next(new ErrorResponse("invalid file format,pdf file is required", 403))
+      if (!mimetype.startsWith("image")) {
+        return next(new ErrorResponse("Invalid file format!!", 403))
       } else {
         return true
       }
@@ -37,24 +37,27 @@ module.exports = {
       const hashedFileName = imageFile.md5
       const extension = path.extname(imageFile.name)
 
-      if (!fs.existsSync("dir")) {
+      if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir)
       }
       imageFileName = hashedFileName + extension
+      // console.log(imageFileName)
       imageFile.mv(`${dir}/${imageFileName}`, function (err) {
         if(err){
           return next(new ErrorResponse("Something Went wrong",500))
         }
       })
-      return imagaefileName
-     
-
+      return imageFileName
     } catch (error) {
       console.log(error)
+     
 
     }
   }
 }
+     
+     
+
 
 
 
