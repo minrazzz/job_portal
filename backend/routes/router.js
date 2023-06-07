@@ -7,6 +7,7 @@ const {
 } = require("../handlers/userHandler");
 const { isAuthenticated } = require("../middleware/authenticate");
 const Router = express.Router();
+
 // /api/register
 Router.post("/register", userRegister);
 // /api/login

@@ -13,6 +13,7 @@ const isAuthenticated = async (req, res, next) => {
     }
     const tokenInfo = await verifyToken(token);
     const user = await userModel.findById(tokenInfo.data.user_id);
+    
 
     if (!user) {
       return next(new ErrorResponse("user not found", 401));
