@@ -12,13 +12,16 @@ const isAuthenticated = async (req, res, next) => {
       return next(new ErrorResponse("token not found", 401));
     }
     const tokenInfo = await verifyToken(token);
-    const user = await userModel.findById(tokenInfo.data.user_id);
+    const user = await userModel.findOne({email:tokenInfo.data.email});
+      
+    
     
 
     if (!user) {
       return next(new ErrorResponse("user not found", 401));
     }
     req.user = user;
+    
 
     next();
   } catch (error) {

@@ -44,7 +44,7 @@ const userLogin = async (req, res, next) => {
     const token = await createToken({
       data: {
         user_id: user._id,
-        name: user.name,
+        name: user.firstName,
         email: user.email,
       },
     });

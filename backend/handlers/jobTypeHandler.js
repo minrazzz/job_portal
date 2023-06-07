@@ -4,8 +4,9 @@ const createJobType = async (req, res, next) => {
   try {
     const jobT = await jobTypeModel.create({
       jobTypeName: req.body.jobTypeName,
-      user: req.user.id,
+      user: req.user._id,
     });
+    
     res.status(201).json({
       success: true,
       jobT,
