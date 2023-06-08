@@ -43,25 +43,45 @@ const getAllJobs = async (req, res, next) => {
            },
         }
       : {};
+
    //filter jobs by ids
    let ids = [];
    const jobTypeCategory = await jobTypeModel.find({}, { _id: 1 });
    jobTypeCategory.forEach((cat) => {
-      ids.push(cat.id);
+      ids.push(cat._id);
    });
-   console.log(ids);
    let cat = req.query.cat || "";
    let categ = cat !== "" ? cat : ids;
+
+   //filter by location
+   const locations = [];
+   const jobByLocation = await jobModel.find({}, { location: 1 });
+   jobByLocation.forEach((val) => {
+      locations.push(val.location);
+   });
+   //to fix the same location issue
+   let setUniqueLocation = [...new Set(locations)];
+   let location = req.query.location || "";
+   let locationFilter = location !== "" ? location : setUniqueLocation;
+
    //enable Pagination
-   const pageSize = 3;
+   const pageSize = 7;
    const page = Number(req.query.pageNumber) || 1;
    // const count = await jobModel.find().estimatedDocumentCount();
    const count = await jobModel
-      .find({ ...keyword, jobType: { $in: categ } })
+      .find({
+         ...keyword,
+         jobType: { $in: categ },
+         location: { $in: locationFilter },
+      })
       .countDocuments();
    try {
       const jobs = await jobModel
-         .find({ ...keyword, jobType: { $in: categ } })
+         .find({
+            ...keyword,
+            jobType: { $in: categ },
+            location: { $in: locationFilter },
+         })
          .sort({ createdAt: -1 })
          .skip(pageSize * (page - 1))
          .limit(pageSize);
@@ -71,6 +91,7 @@ const getAllJobs = async (req, res, next) => {
          pages: Math.ceil(count / pageSize),
          count,
          ids,
+         setUniqueLocation,
       });
    } catch (error) {
       console.log(error);
