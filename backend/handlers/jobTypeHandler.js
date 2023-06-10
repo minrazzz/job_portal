@@ -49,9 +49,8 @@ const updateJobType = async (req, res, next) => {
 const deleteJobType = async (req, res, next) => {
    try {
       const id = req.params.id;
-      const jobT = await jobTypeModel.findByIdAndDelete(id, req.body, {
-         new: true,
-      });
+      const jobT = await jobTypeModel.findByIdAndDelete(id);
+
       return res.status(200).json({
          success: true,
          jobT,

@@ -1,9 +1,10 @@
 const express = require("express");
 const {
-  allUsers,
-  singleUser,
-  editUser,
-  deleteUser,
+   allUsers,
+   singleUser,
+   editUser,
+   deleteUser,
+   createUserJobsHistory,
 } = require("../handlers/userInfoHandler");
 const { isAuthenticated, isAdmin } = require("../middleware/authenticate");
 const Router = express.Router();
@@ -17,5 +18,7 @@ Router.get("/singleUser/:id", isAuthenticated, singleUser);
 Router.put("/user/edit/:id", isAuthenticated, editUser);
 // /api/admin/user/delete/id
 Router.delete("/admin/user/delete/:id", isAuthenticated, isAdmin, deleteUser);
+// /api/user/jobhistory
+Router.post("/user/jobhistory", isAuthenticated, createUserJobsHistory);
 
 module.exports = Router;

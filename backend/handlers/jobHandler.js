@@ -11,9 +11,11 @@ const addJobs = async (req, res, next) => {
       const body = req.body;
       const imageFile = req.files.resume;
 
-      if (!validationImage(imageFile.mimetype, res)) return false;
+      if (!validationImage(imageFile.mimetype, res)) {
+         return next(new ErrorResponse("Invalid file format", 406));
+      }
       const imageFileName = await imageUpload("uploads", imageFile);
-      const job = await jobModel.create({
+      const job = await new jobModel({
          title: body.title,
          description: body.description,
          salary: body.salary,
@@ -22,6 +24,8 @@ const addJobs = async (req, res, next) => {
          user: req.user.id,
          resume: "uploads/" + imageFileName,
       });
+
+      await job.save();
       res.status(201).json({
          success: true,
          job,
@@ -47,11 +51,13 @@ const getAllJobs = async (req, res, next) => {
    //filter jobs by ids
    let ids = [];
    const jobTypeCategory = await jobTypeModel.find({}, { _id: 1 });
+   console.log(jobTypeCategory);
    jobTypeCategory.forEach((cat) => {
       ids.push(cat._id);
    });
    let cat = req.query.cat || "";
    let categ = cat !== "" ? cat : ids;
+   console.log(ids);
 
    //filter by location
    const locations = [];
@@ -70,7 +76,7 @@ const getAllJobs = async (req, res, next) => {
    // const count = await jobModel.find().estimatedDocumentCount();
    const count = await jobModel
       .find({
-         ...keyword,
+         ...(keyword || {}),
          jobType: { $in: categ },
          location: { $in: locationFilter },
       })
@@ -126,8 +132,9 @@ const editSingleJob = async (req, res, next) => {
          .populate("jobType", "jobTypeName")
          .populate("user", "firstName lastName");
       if (!job) return next(new ErrorResponse("id not found", 404));
-      //   console.log(job)
+
       if (req.files && req.files.resume) {
+         //   console.log(job)
          let imageFileName = null;
          const imageFile = req.files.resume;
          // console.log(imageFile)
@@ -142,7 +149,9 @@ const editSingleJob = async (req, res, next) => {
          });
 
          imageFileName = await imageUpload("uploads", imageFile);
-         job.resume = imageFileName ? `uploads/${imageFileName}` : null;
+         job.resume = req.files.resume
+            ? `uploads/${imageFileName}`
+            : job.resume;
       }
       await job.save();
       return res.status(200).json({

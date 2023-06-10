@@ -73,9 +73,35 @@ const deleteUser = async (req, res, next) => {
       console.log(error);
    }
 };
+const createUserJobsHistory = async (req, res) => {
+   try {
+      const { title, description, salary, location } = req.body;
+      const currentUser = await userModel.findOne({ _id: req.user._id });
+      if (!currentUser) {
+         return next(new ErrorResponse("user is not logged in!!", 401));
+      }
+      const addJobHistory = {
+         title,
+         description,
+         salary,
+         location,
+         user: req.user._id,
+      };
+      await currentUser.jobHistory.push(addJobHistory);
+      await currentUser.save();
+      res.status(200).json({
+         success: true,
+         currentUser,
+      });
+   } catch (error) {
+      console.log(error);
+   }
+};
+
 module.exports = {
    allUsers,
    singleUser,
    editUser,
    deleteUser,
+   createUserJobsHistory,
 };
