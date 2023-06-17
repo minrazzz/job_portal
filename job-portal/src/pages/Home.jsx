@@ -7,26 +7,19 @@ import Filter from "../component/Filter";
 import JobsInfo from "../component/JobsInfo";
 import JobType from "../component/JobType";
 
-//added the page below just now
 const Home = () => {
    const { jobs, setUniqueLocation, pages, loading, count } = useSelector(
       (state) => state.allJobs
    );
 
-   //jo
    const { keyword, location } = useParams();
-   const [page, setPage] = useState(1);
-   {
-      console.log(page);
-   }
-   const [total, setTotal] = useState(0);
+   const [currentPage, setCurrentPage] = useState(1);
    const [cat, setCat] = useState("");
    const dispatch = useDispatch();
 
    useEffect(() => {
-      dispatch(loadJobs(page, keyword, cat, location));
-      console.log();
-   }, [page, keyword, cat, location]);
+      dispatch(loadJobs(currentPage, keyword, cat, location));
+   }, [currentPage, keyword, cat, location]);
 
    useEffect(() => {
       dispatch(loadJobType());
@@ -43,12 +36,27 @@ const Home = () => {
    if (jobs.length <= 0) {
       return (
          <div className="no-data text-2xl font-bold grid justify-center items-center min-h-[300px]">
-            <h1 className="dark:text-white">No jobs found !</h1>
+            <h1 className="dark:text-white">No jobs found!</h1>
          </div>
       );
    }
+
    const handleChangeCategory = (e) => {
+      e.preventDefault();
       setCat(e.target.value);
+      setCurrentPage(1); // Reset page to 1 when category changes
+   };
+
+   const handlePreviousPage = () => {
+      if (currentPage > 1) {
+         setCurrentPage((prevPage) => prevPage - 1);
+      }
+   };
+
+   const handleNextPage = () => {
+      if (currentPage < pages) {
+         setCurrentPage((prevPage) => prevPage + 1);
+      }
    };
 
    return (
@@ -80,18 +88,25 @@ const Home = () => {
                </div>
             </div>
          </div>
-         {jobs?.length >= count ? (
-            " "
-         ) : (
-            <div className="see-more flex justify-center items-center pt-4 pb-3">
-               <div className="cursor-pointer flex flex-col justify-center items-center ">
-                  <h1
-                     className="text-md font-semibold dark:text-white"
-                     onClick={() => setPage(page + 1)}
+         {currentPage > pages ? null : (
+            <div className="pagination-container flex justify-center gap-x-3 items-center mt-4">
+               <div>
+                  <button
+                     className="pagination-previous bg-[#057E01] px-2 py-1 rounded-full disabled:cursor-not-allowed hover:bg-opacity-80 text-white"
+                     onClick={handlePreviousPage}
+                     disabled={currentPage === 1}
                   >
-                     See More
-                  </h1>
-                  <i className="fa-solid fa-angles-down dark:text-white"></i>
+                     Previous
+                  </button>
+               </div>
+               <div>
+                  <button
+                     className="pagination-next bg-[#057E01] px-5 py-1 rounded-full disabled:cursor-not-allowed  hover:bg-opacity-80 text-white"
+                     onClick={handleNextPage}
+                     disabled={currentPage === pages}
+                  >
+                     Next
+                  </button>
                </div>
             </div>
          )}
