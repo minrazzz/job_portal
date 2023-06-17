@@ -1,4 +1,5 @@
 const { jobTypeModel } = require("../models/jobTypeModel");
+const ErrorResponse = require("../utils/errorResponse");
 
 const createJobType = async (req, res, next) => {
    try {
@@ -20,6 +21,9 @@ const createJobType = async (req, res, next) => {
 const allJobsType = async (req, res, next) => {
    try {
       const jobT = await jobTypeModel.find();
+      if (!jobT) {
+         return next(new ErrorResponse("no category", 404));
+      }
       return res.status(200).json({
          success: true,
          jobT,

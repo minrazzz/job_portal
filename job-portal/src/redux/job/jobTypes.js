@@ -1,0 +1,4 @@
+export const LOAD_JOB_REQUEST = "LOAD_JOB_REQUEST";
+export const LOAD_JOB_SUCCESS = "LOAD_JOB_SUCCESS";
+export const LOAD_JOB_FAILURE = "LOAD_JOB_FAILURE";
+export const LOAD_JOB_RESET = "LOAD_JOB_RESET";

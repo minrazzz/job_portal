@@ -51,13 +51,12 @@ const getAllJobs = async (req, res, next) => {
    //filter jobs by ids
    let ids = [];
    const jobTypeCategory = await jobTypeModel.find({}, { _id: 1 });
-   console.log(jobTypeCategory);
+   // console.log(jobTypeCategory);
    jobTypeCategory.forEach((cat) => {
       ids.push(cat._id);
    });
    let cat = req.query.cat || "";
    let categ = cat !== "" ? cat : ids;
-   console.log(ids);
 
    //filter by location
    const locations = [];
@@ -71,7 +70,7 @@ const getAllJobs = async (req, res, next) => {
    let locationFilter = location !== "" ? location : setUniqueLocation;
 
    //enable Pagination
-   const pageSize = 7;
+   const pageSize = 5;
    const page = Number(req.query.pageNumber) || 1;
    // const count = await jobModel.find().estimatedDocumentCount();
    const count = await jobModel
@@ -88,9 +87,11 @@ const getAllJobs = async (req, res, next) => {
             jobType: { $in: categ },
             location: { $in: locationFilter },
          })
+         .populate("jobType", "jobTypeName")
          .sort({ createdAt: -1 })
-         .skip(pageSize * (page - 1))
+         .skip(page > 0 ? (page - 1) * pageSize : 0)
          .limit(pageSize);
+
       res.status(201).json({
          jobs,
          page,
@@ -99,6 +100,7 @@ const getAllJobs = async (req, res, next) => {
          ids,
          setUniqueLocation,
       });
+      console.log(jobs);
    } catch (error) {
       console.log(error);
       next(error);
