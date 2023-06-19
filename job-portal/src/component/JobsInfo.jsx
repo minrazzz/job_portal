@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const JobsInfo = ({ title, description, location, category }) => {
    return (
       <>
-         <div className="basis-3/4 px-3 mr-1 dark:bg-[#1E2936]  rounded-md shadow-md hover:shadow-lg hover:transition-all">
+         <div className="basis-3/4 px-3 mr-1 dark:bg-[#1E2936] bg-white  rounded-md shadow-md hover:shadow-lg hover:transition-all">
             <div className="jobInfo ml-3 pt-2 ">
                <div className="location flex items-center gap-x-1 text-[#057E01]">
                   <i className="fa-solid fa-location-dot"></i>

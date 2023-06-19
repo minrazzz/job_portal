@@ -1,23 +1,24 @@
 import React from "react";
 import Carousel from "./Carousel";
+import image from "../assets/forest.jpg";
 
 const Header = () => {
    const slides = [
       {
-         url: "forest.jpg",
+         url: image,
       },
       {
-         url: "forest.jpg",
+         url: image,
       },
       {
-         url: "forest.jpg",
+         url: image,
       },
 
       {
-         url: "forest.jpg",
+         url: image,
       },
       {
-         url: "forest.jpg",
+         url: image,
       },
    ];
    return (

@@ -20,9 +20,18 @@ function App() {
          element: <Layout />,
          children: [
             {
+               path: "/search/location/:location",
+               element: <Home />,
+            },
+            {
+               path: "/search/:keyword",
+               element: <Home />,
+            },
+            {
                path: "/",
                element: <Home />,
             },
+
             {
                path: "/login",
                element: <Login />,
