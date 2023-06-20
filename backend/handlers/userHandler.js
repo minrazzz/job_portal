@@ -32,13 +32,13 @@ const userLogin = async (req, res, next) => {
       //email-compare
       const user = await userModel.findOne({ email: body.email });
       if (!user) {
-         return next(new ErrorResponse("Invalid Credentials", 400));
+         return next(new ErrorResponse("Invalid Credentials", 401));
       }
 
       //password-compare
       const isMatched = await user.comparePassword(body.password);
       if (!isMatched) {
-         return next(new ErrorResponse("Invalid Credentials", 400));
+         return next(new ErrorResponse("Invalid Credentials", 401));
       }
       // createtoken;
       const token = await createToken({

@@ -19,7 +19,7 @@ const loginReducer = (state = initialState, action) => {
       case USER_SIGNIN_SUCCESS:
          return {
             loading: false,
-            userInfo: action.payload.data,
+            userInfo: action.payload,
             isAuthenticated: true,
          };
       case USER_SIGNIN_FAIL:
