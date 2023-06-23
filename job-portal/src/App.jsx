@@ -15,8 +15,14 @@ import JobView from "./pages/JobView";
 import NotFound from "./pages/NotFound";
 import UserDashboard from "./pages/UserDashboard";
 import UserRoutes from "./component/UserRoutes";
+import SidebarAdm from "./pages/global/Sidebar";
+import Common from "./pages/global/Common";
+import UserJobHistory from "./pages/user/UserJobHistory";
 
 function App() {
+   const UserDashboardHOC = Common(UserDashboard);
+   const UserJobHistoryHOC = Common(UserJobHistory);
+
    const router = createBrowserRouter([
       {
          path: "/",
@@ -47,13 +53,21 @@ function App() {
                path: "/user/dashboard",
                element: (
                   <UserRoutes>
-                     <UserDashboard />,
+                     <UserDashboardHOC />,
                   </UserRoutes>
                ),
             },
             {
-               path: "/jobView",
-               element: <JobView />,
+               path: "/user/jobs",
+               element: (
+                  <UserRoutes>
+                     <UserJobHistoryHOC />,
+                  </UserRoutes>
+               ),
+            },
+            {
+               path: "/sidebar",
+               element: <SidebarAdm />,
             },
             {
                path: "*",

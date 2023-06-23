@@ -10,16 +10,15 @@ const storedUserInfo = localStorage.getItem("userInfo")
    : null;
 
 const loginInitialState = {
-   loading: false,
    userInfo: storedUserInfo,
-   isAuthenticated: false,
+
    error: "",
 };
 
 const loginReducer = (state = loginInitialState, action) => {
    switch (action.type) {
       case USER_SIGNIN_REQUEST:
-         return { loading: true, isAuthenticated: false, userInfo: null };
+         return { loading: true, userInfo: null, isAuthenticated: false };
       case USER_SIGNIN_SUCCESS:
          return {
             loading: false,
@@ -32,6 +31,7 @@ const loginReducer = (state = loginInitialState, action) => {
             loading: false,
             error: action.payload,
             userInfo: null,
+            isAuthenticated: false,
          };
       case USER_SIGNIN_RESET:
          return {};

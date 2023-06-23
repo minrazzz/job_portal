@@ -119,7 +119,7 @@ const Home = () => {
             </div>
          </div>
          {currentPage > pages ? null : (
-            <div className="pagination-container flex justify-center gap-x-3 items-center mt-4 px-auto">
+            <div className="pagination-container flex justify-center gap-x-3 items-center mt-4 px-auto mb-4">
                <div>
                   <button
                      className="pagination-previous dark:bg-[#1E2936] dark:hover:bg-opacity-60 bg-[#057E01] px-6  py-1 rounded-full disabled:cursor-not-allowed hover:bg-opacity-80 text-white"

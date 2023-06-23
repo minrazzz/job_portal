@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../component/SearchBar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import { loginAction } from "../redux";
 
 const Navbar = () => {
-   const { userInfo, loading } = useSelector((state) => state.login);
+   const { userInfo } = useSelector((state) => state.login);
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
    const [theme, setTheme] = useState(
       localStorage.getItem("mernTheme") ?? "light"
    );
@@ -25,12 +28,12 @@ const Navbar = () => {
       setTheme(theme === "dark" ? "light" : "dark");
    };
    const logout = () => {
-      Cookies.remove("auth");
       localStorage.removeItem("userInfo");
-      window.location.reload(true);
+      Cookies.remove("auth");
       setTimeout(() => {
          navigate("/");
-      }, 500);
+         window.location.reload(true);
+      }, 300);
    };
 
    return (
@@ -50,7 +53,7 @@ const Navbar = () => {
             </div>
             <div className="right-box link mr-3 flex items-center gap-9">
                <SearchBar />
-               {loading === true && ""}
+
                {userInfo === null && (
                   <>
                      <div className="links flex gap-3">

@@ -25,7 +25,7 @@ export const Login = () => {
          } else {
             resetForm();
          }
-      }, 300);
+      }, 500);
    };
 
    const resetForm = () => {
