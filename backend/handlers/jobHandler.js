@@ -2,7 +2,7 @@ const { jobModel } = require("../models/jobModel");
 
 const fs = require("fs");
 const { validationImage, imageUpload } = require("../utils/utils");
-const ErrorResponse = require("../utils/errorResponse");
+
 const { jobTypeModel } = require("../models/jobTypeModel");
 
 //create-jobs
@@ -12,7 +12,10 @@ const addJobs = async (req, res, next) => {
       const imageFile = req.files.resume;
 
       if (!validationImage(imageFile.mimetype, res)) {
-         return next(new ErrorResponse("Invalid file format", 406));
+         res.status(406).json({
+            success: false,
+            error: "invalid file format",
+         });
       }
       const imageFileName = await imageUpload("uploads", imageFile);
       const job = await new jobModel({
@@ -92,6 +95,13 @@ const getAllJobs = async (req, res, next) => {
          .skip(page > 0 ? (page - 1) * pageSize : 0)
          .limit(pageSize);
 
+      if (!jobs) {
+         res.status(404).json({
+            success: false,
+            error: "jobs not found",
+         });
+      }
+
       res.status(201).json({
          jobs,
          page,
@@ -103,7 +113,6 @@ const getAllJobs = async (req, res, next) => {
       console.log(jobs);
    } catch (error) {
       console.log(error);
-      next(error);
    }
 };
 
@@ -113,7 +122,10 @@ const getSingleJob = async (req, res, next) => {
       const id = req.params.id;
       const job = await jobModel.findById(id);
       if (!job) {
-         return next(new ErrorResponse("Id not match", 404));
+         res.status(404).json({
+            success: false,
+            error: "id not matched",
+         });
       }
       res.status(200).json({
          success: true,
@@ -121,7 +133,6 @@ const getSingleJob = async (req, res, next) => {
       });
    } catch (error) {
       console.log(error);
-      next(error);
    }
 };
 //editJob(by-id)
@@ -133,7 +144,12 @@ const editSingleJob = async (req, res, next) => {
          .findByIdAndUpdate(id, req.body, { new: true })
          .populate("jobType", "jobTypeName")
          .populate("user", "firstName lastName");
-      if (!job) return next(new ErrorResponse("id not found", 404));
+      if (!job) {
+         res.status(404).json({
+            success: false,
+            error: "single job not found!!",
+         });
+      }
 
       if (req.files && req.files.resume) {
          //   console.log(job)
@@ -141,9 +157,12 @@ const editSingleJob = async (req, res, next) => {
          const imageFile = req.files.resume;
          // console.log(imageFile)
          if (!validationImage(imageFile.mimetype, res)) {
-            return next(new ErrorResponse("invalid file format", 406));
+            res.status(401).json({
+               success: false,
+               error: "invalid file format,must be an image file",
+            });
          }
-         console.log(job.resume);
+
          fs.unlink(job.resume, function (err) {
             if (err) {
                return;

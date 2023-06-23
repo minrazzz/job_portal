@@ -15,6 +15,12 @@ const allUsers = async (req, res, next) => {
          .select("-password")
          .skip(pageSize * (page - 1))
          .limit(pageSize);
+      if (!users) {
+         res.status(404).json({
+            success: false,
+            error: "unable to find the users' details",
+         });
+      }
       res.status(200).json({
          success: true,
          users,
@@ -22,6 +28,7 @@ const allUsers = async (req, res, next) => {
          pages: Math.ceil(count / pageSize),
          count,
       });
+
       next();
    } catch (error) {
       return next(error);
@@ -33,7 +40,10 @@ const singleUser = async (req, res, next) => {
       const user = await userModel.findById(req.params.id);
 
       if (!user) {
-         return next(new ErrorResponse("Invalid id", 400));
+         res.status(404).json({
+            success: false,
+            error: "error while finding single user",
+         });
       }
       res.status(200).json({
          success: true,
@@ -50,7 +60,10 @@ const editUser = async (req, res, next) => {
          new: true,
       });
       if (!user) {
-         return next(new ErrorResponse("Invalid id", 401));
+         res.status(401).json({
+            success: false,
+            error: "invalid id for editUser",
+         });
       }
       res.status(200).json({
          success: true,
@@ -78,7 +91,10 @@ const createUserJobsHistory = async (req, res) => {
       const { title, description, salary, location } = req.body;
       const currentUser = await userModel.findOne({ _id: req.user._id });
       if (!currentUser) {
-         return next(new ErrorResponse("user is not logged in!!", 401));
+         res.status(401).json({
+            success: false,
+            error: "user is not logged in!!",
+         });
       }
       const addJobHistory = {
          title,

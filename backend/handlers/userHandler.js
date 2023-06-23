@@ -22,7 +22,7 @@ const userRegister = async (req, res, next) => {
          user,
       });
    } catch (error) {
-      return next(error);
+      console.log(error);
    }
 };
 //user-loginapi
@@ -32,13 +32,13 @@ const userLogin = async (req, res, next) => {
       //email-compare
       const user = await userModel.findOne({ email: body.email });
       if (!user) {
-         return next(new ErrorResponse("Invalid Credentials", 401));
+         return next(new ErrorResponse("Inavlid credentials", 401));
       }
 
       //password-compare
       const isMatched = await user.comparePassword(body.password);
       if (!isMatched) {
-         return next(new ErrorResponse("Invalid Credentials", 401));
+         return next(new ErrorResponse("Inavlid credentials", 401));
       }
       // createtoken;
       const token = await createToken({
@@ -57,6 +57,7 @@ const userLogin = async (req, res, next) => {
       });
    } catch (error) {
       console.log(error);
+      next(error);
    }
 };
 
@@ -74,6 +75,13 @@ const userProfile = async (req, res, next) => {
    try {
       console.log(req.user);
       const user = await userModel.findOne(req.user._id).select("-password");
+
+      if (!user) {
+         res.status(404).json({
+            success: false,
+            error: "unable to find the profile",
+         });
+      }
 
       res.status(200).json({
          success: true,

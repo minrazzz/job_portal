@@ -5,13 +5,13 @@ import {
    LOAD_JOB_TYPE_SUCCESS,
 } from "./constant";
 
-const initialState = {
+const jobTypeInitialState = {
    loading: false,
    jobType: [],
    error: "",
 };
 //database connect properly
-const JobTypeReducer = (state = initialState, action) => {
+const JobTypeReducer = (state = jobTypeInitialState, action) => {
    switch (action.type) {
       case LOAD_JOB_TYPE_REQUEST:
          return {

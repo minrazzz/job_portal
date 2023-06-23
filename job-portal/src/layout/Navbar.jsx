@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../component/SearchBar";
+import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
+   const { userInfo, loading } = useSelector((state) => state.login);
    const [theme, setTheme] = useState(
       localStorage.getItem("mernTheme") ?? "light"
    );
@@ -21,6 +24,15 @@ const Navbar = () => {
 
       setTheme(theme === "dark" ? "light" : "dark");
    };
+   const logout = () => {
+      Cookies.remove("auth");
+      localStorage.removeItem("userInfo");
+      window.location.reload(true);
+      setTimeout(() => {
+         navigate("/");
+      }, 500);
+   };
+
    return (
       <>
          <div className="navbar dark:bg-[#1E2936] bg-[#047E01] flex px-5 py-2 items-center justify-between rounded-sm shadow-lg">
@@ -38,14 +50,33 @@ const Navbar = () => {
             </div>
             <div className="right-box link mr-3 flex items-center gap-9">
                <SearchBar />
-               <div className="links flex gap-3">
-                  <Link
-                     className="text-white hover:font-semibold hover:transition-all"
-                     to="/login"
-                  >
-                     Login
-                  </Link>
-               </div>
+               {loading === true && ""}
+               {userInfo === null && (
+                  <>
+                     <div className="links flex gap-3">
+                        <Link
+                           className="text-white hover:font-semibold hover:transition-all"
+                           to="/login"
+                        >
+                           Login
+                        </Link>
+                     </div>
+                  </>
+               )}
+               {userInfo && (
+                  <>
+                     <div className="links flex gap-3">
+                        <Link
+                           className="text-white hover:font-semibold hover:transition-all"
+                           to="#"
+                           onClick={() => logout()}
+                        >
+                           Logout
+                        </Link>
+                     </div>
+                  </>
+               )}
+
                <div className="icons">
                   {theme === "dark" ? (
                      <div>

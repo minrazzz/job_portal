@@ -46,7 +46,7 @@ export const loadJobs =
          console.log(jobs);
          dispatch(loadJobSuccess(jobs));
       } catch (error) {
-         let errorMsg = jobs.error;
+         let errorMsg = error.response.data.error;
          dispatch(loadJobFailure(errorMsg));
       }
    };

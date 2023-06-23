@@ -1,35 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../redux";
-import { toast } from "react-toastify";
 
 export const Login = () => {
    const dispatch = useDispatch();
+   const { isAuthenticated, userInfo } = useSelector((state) => state.login);
+   const [error, setError] = useState(null);
    const navigate = useNavigate();
-   const { isAuthenticated } = useSelector((state) => state.login);
+   const [passwordPreview, setPasswordPreview] = useState(false);
    const [input, setInput] = useState({
       email: "",
       password: "",
    });
-   const [error, setError] = useState(null);
-   const [passwordPreview, setPasswordPreview] = useState(false);
+   //still not working properly
    //onSubmit
    const loginUSer = async (e) => {
       e.preventDefault();
-      await dispatch(loginAction(input));
-      for (const key in input) {
-         if (input[key] === "") {
-            setError("All fields are required!!");
-            return false;
+      dispatch(loginAction(input));
+      setTimeout(() => {
+         if (!userInfo) {
+            setError("Invalid credentials");
+         } else {
+            resetForm();
          }
-      }
-
-      if (isAuthenticated) {
-         navigate("/");
-      }
+      }, 300);
    };
+
+   const resetForm = () => {
+      setInput({ email: "", password: "" }); // Reset form fields
+      setError(null); // Reset error message
+   };
+
+   useEffect(() => {
+      // console.log(isAuthenticated);
+      if (isAuthenticated) {
+         navigate("/user/dashboard");
+      }
+   }, [isAuthenticated]);
+
+   // useEffect(() => {
+   //    console.log(userInfo); // Log the updated userInfo object
+   //    if (!userInfo || !userInfo.success) {
+   //       setError("Invalid credentials");
+   //    } else {
+   //       resetForm();
+   //    }
+   // }, [userInfo]);
 
    return (
       <>

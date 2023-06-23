@@ -14,8 +14,8 @@ const userRouter = require("./routes/userRouter");
 const jobTypeRoutes = require("./routes/jobTypeRoutes");
 const jobRouter = require("./routes/jobRouter");
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(cookieParser());
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());

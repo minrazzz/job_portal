@@ -5,13 +5,13 @@ import {
    LOAD_JOB_RESET,
 } from "./jobTypes";
 
-const initialState = {
+const jobInitialState = {
    loading: false,
    jobs: [],
    error: "",
 };
 //database connect properly
-const JobReducer = (state = initialState, action) => {
+const JobReducer = (state = jobInitialState, action) => {
    switch (action.type) {
       case LOAD_JOB_REQUEST:
          return {
@@ -31,7 +31,7 @@ const JobReducer = (state = initialState, action) => {
          return {
             loading: false,
             jobs: [],
-            error: "action.payload",
+            error: action.payload,
          };
       case LOAD_JOB_RESET:
          return {};

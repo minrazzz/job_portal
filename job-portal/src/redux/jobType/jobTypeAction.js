@@ -43,7 +43,7 @@ export const loadJobType = () => async (dispatch) => {
       console.log(jobType);
       dispatch(loadJobTypeSuccess(jobType));
    } catch (error) {
-      let errMsg = response.data.error;
+      let errMsg = error.response.data.error;
       dispatch(loadJobTypeFailure(errMsg));
    }
 };

@@ -22,7 +22,10 @@ const allJobsType = async (req, res, next) => {
    try {
       const jobT = await jobTypeModel.find();
       if (!jobT) {
-         return next(new ErrorResponse("no category", 404));
+         res.status(404).json({
+            success: false,
+            error: "jobsType not found!!!",
+         });
       }
       return res.status(200).json({
          success: true,
