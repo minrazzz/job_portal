@@ -107,6 +107,7 @@ const Home = () => {
                      jobs.map((job, index) => (
                         <JobsInfo
                            {...job}
+                           id={job ? job._id : ""}
                            key={index}
                            category={
                               job.jobType

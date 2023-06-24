@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userProfileAction } from "../../redux";
+import React, { useState } from "react";
 import JobHistory from "../../component/JobHistory";
+import { useSelector } from "react-redux";
 
 const UserJobHistory = () => {
    const { user } = useSelector((state) => state.profile);
-   const dispatch = useDispatch();
 
    const itemsPerPage = 4; // Number of items to display per page
    const [currentPage, setCurrentPage] = useState(1);
-
-   useEffect(() => {
-      dispatch(userProfileAction());
-   }, []);
 
    // Pagination calculations
    const indexOfLastItem = currentPage * itemsPerPage;
@@ -37,7 +31,7 @@ const UserJobHistory = () => {
 
    return (
       <>
-         <div className="ml-[40%]">
+         <div className="ml-[40%] ">
             <h4 className="text-2xl text-[#057E01] font-bold">Jobs History</h4>
          </div>
          <div className="">

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const JobsInfo = ({ title, description, location, category }) => {
+const JobsInfo = ({ title, description, location, category, id }) => {
    return (
       <>
          <div className="px-3 mr-1 dark:bg-[#1E2936] bg-white  rounded-md shadow-md hover:shadow-lg hover:transition-all ">
@@ -24,7 +24,10 @@ const JobsInfo = ({ title, description, location, category }) => {
                   {description}
                </div>
                <div className=" my-2  bg-[#057E01] hover:bg-opacity-80 w-[10%] pl-2 pb-1 rounded-full">
-                  <Link to={`/sidebar`} className="text-white font-semibold   ">
+                  <Link
+                     to={`/single/Job/${id}`}
+                     className="text-white font-semibold   "
+                  >
                      see more
                   </Link>
                </div>

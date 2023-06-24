@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,11 @@ export const Login = () => {
    useEffect(() => {
       // console.log(isAuthenticated);
       if (isAuthenticated) {
-         navigate("/user/dashboard");
+         if (userInfo.role === 1) {
+            navigate("/admin/dashboard");
+         } else {
+            navigate("/user/dashboard");
+         }
       }
    }, [isAuthenticated]);
 

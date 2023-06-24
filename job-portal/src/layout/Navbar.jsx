@@ -3,11 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../component/SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { loginAction } from "../redux";
 
 const Navbar = () => {
    const { userInfo } = useSelector((state) => state.login);
-   const dispatch = useDispatch();
    const navigate = useNavigate();
    const [theme, setTheme] = useState(
       localStorage.getItem("mernTheme") ?? "light"

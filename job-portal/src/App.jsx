@@ -11,17 +11,22 @@ import "./App.css";
 import Register from "./pages/Register";
 import Layout from "./layout/Layout";
 import { Login } from "./pages/Login";
-import JobView from "./pages/JobView";
 import NotFound from "./pages/NotFound";
-import UserDashboard from "./pages/UserDashboard";
 import UserRoutes from "./component/UserRoutes";
-import SidebarAdm from "./pages/global/Sidebar";
+
 import Common from "./pages/global/Common";
 import UserJobHistory from "./pages/user/UserJobHistory";
+import UserInfoDashboard from "./pages/user/UserInfoDashboard";
+import UserDashboard from "./pages/user/UserDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminRoute from "./component/AdminRoute";
+import JobView from "./pages/JobView";
 
 function App() {
    const UserDashboardHOC = Common(UserDashboard);
    const UserJobHistoryHOC = Common(UserJobHistory);
+   const UserInfoDashboardHOC = Common(UserInfoDashboard);
+   const AdminDashboardHOC = Common(AdminDashboard);
 
    const router = createBrowserRouter([
       {
@@ -50,10 +55,22 @@ function App() {
                element: <Login />,
             },
             {
+               path: "/single/Job/:id",
+               element: <JobView />,
+            },
+            {
+               path: "/admin/Dashboard",
+               element: (
+                  <AdminRoute>
+                     <AdminDashboardHOC />
+                  </AdminRoute>
+               ),
+            },
+            {
                path: "/user/dashboard",
                element: (
                   <UserRoutes>
-                     <UserDashboardHOC />,
+                     <UserDashboardHOC />
                   </UserRoutes>
                ),
             },
@@ -61,14 +78,19 @@ function App() {
                path: "/user/jobs",
                element: (
                   <UserRoutes>
-                     <UserJobHistoryHOC />,
+                     <UserJobHistoryHOC />
                   </UserRoutes>
                ),
             },
             {
-               path: "/sidebar",
-               element: <SidebarAdm />,
+               path: "/user/Info",
+               element: (
+                  <UserRoutes>
+                     <UserInfoDashboardHOC />
+                  </UserRoutes>
+               ),
             },
+
             {
                path: "*",
                element: <NotFound />,

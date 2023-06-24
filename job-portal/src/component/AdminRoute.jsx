@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-const UserRoutes = ({ children }) => {
+const AdminRoute = ({ children }) => {
    const { userInfo } = useSelector((state) => state.login);
    const [cookies] = useCookies(["auth"]);
 
@@ -13,7 +13,11 @@ const UserRoutes = ({ children }) => {
       }
    }, [userInfo, cookies.auth]);
 
-   return userInfo ? children : <Navigate to="/" replace />;
+   return userInfo && userInfo.role === 1 ? (
+      children
+   ) : (
+      <Navigate to="/" replace />
+   );
 };
 
-export default UserRoutes;
+export default AdminRoute;
