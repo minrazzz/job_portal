@@ -31,7 +31,7 @@ const UserJobHistory = () => {
 
    return (
       <>
-         <div className="ml-[40%] ">
+         <div className="ml-[40%]  ">
             <h4 className="text-2xl text-[#057E01] font-bold">Jobs History</h4>
          </div>
          <div className="">
@@ -40,7 +40,7 @@ const UserJobHistory = () => {
                   <JobHistory key={index} {...history} category="" />
                ))}
          </div>
-         <div className="mt-4 flex justify-center">
+         <div className=" flex justify-center">
             <button
                className={`${
                   currentPage === 1

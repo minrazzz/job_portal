@@ -5,6 +5,7 @@ import loginReducer from "./userLogin/loginReducer";
 import userProfileReducer from "./userProfile/userProfileReducer";
 import singleJobReducer from "./singleJob/singleJobReducer";
 import applyJobReducer from "./applyJob/applyJobReducer";
+import allUsersReducer from "./allUsers/allUsersReducer";
 
 const rootReducers = combineReducers({
    allJobs: JobReducer,
@@ -13,6 +14,7 @@ const rootReducers = combineReducers({
    profile: userProfileReducer,
    singleJob: singleJobReducer,
    applyJob: applyJobReducer,
+   allUsers: allUsersReducer,
 });
 
 export default rootReducers;
