@@ -1,9 +1,8 @@
 const { jobModel } = require("../models/jobModel");
+const { jobTypeModel } = require("../models/jobTypeModel");
 
 const fs = require("fs");
 const { validationImage, imageUpload } = require("../utils/utils");
-
-const { jobTypeModel } = require("../models/jobTypeModel");
 
 //create-jobs
 const addJobs = async (req, res, next) => {
@@ -38,7 +37,6 @@ const addJobs = async (req, res, next) => {
       next(error);
    }
 };
-
 //getAllJob
 const getAllJobs = async (req, res, next) => {
    // enable search-keyword

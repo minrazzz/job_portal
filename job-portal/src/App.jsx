@@ -21,12 +21,14 @@ import UserDashboard from "./pages/user/UserDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminRoute from "./component/AdminRoute";
 import JobView from "./pages/JobView";
+import UsersDashboard from "./pages/admin/UsersDashboard";
 
 function App() {
    const UserDashboardHOC = Common(UserDashboard);
    const UserJobHistoryHOC = Common(UserJobHistory);
    const UserInfoDashboardHOC = Common(UserInfoDashboard);
    const AdminDashboardHOC = Common(AdminDashboard);
+   const UsersDashboardHOC = Common(UsersDashboard);
 
    const router = createBrowserRouter([
       {
@@ -63,6 +65,14 @@ function App() {
                element: (
                   <AdminRoute>
                      <AdminDashboardHOC />
+                  </AdminRoute>
+               ),
+            },
+            {
+               path: "/admin/Users",
+               element: (
+                  <AdminRoute>
+                     <UsersDashboardHOC />
                   </AdminRoute>
                ),
             },

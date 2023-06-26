@@ -7,7 +7,7 @@ import {
 
 const singleJobInitialState = {
    loading: false,
-   singleJob: null,
+   single: null,
    success: null,
    error: "",
 };
