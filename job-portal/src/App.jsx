@@ -22,6 +22,9 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminRoute from "./component/AdminRoute";
 import JobView from "./pages/JobView";
 import UsersDashboard from "./pages/admin/UsersDashboard";
+import EditUser from "./pages/admin/EditUser";
+import SingleUser from "./pages/admin/SingleUser";
+import DashJobs from "./pages/admin/DashJobs";
 
 function App() {
    const UserDashboardHOC = Common(UserDashboard);
@@ -29,6 +32,9 @@ function App() {
    const UserInfoDashboardHOC = Common(UserInfoDashboard);
    const AdminDashboardHOC = Common(AdminDashboard);
    const UsersDashboardHOC = Common(UsersDashboard);
+   const EditUserHoc = Common(EditUser);
+   const SingleUserHOC = Common(SingleUser);
+   const DashJobsHOC = Common(DashJobs);
 
    const router = createBrowserRouter([
       {
@@ -73,6 +79,30 @@ function App() {
                element: (
                   <AdminRoute>
                      <UsersDashboardHOC />
+                  </AdminRoute>
+               ),
+            },
+            {
+               path: "/admin/jobs",
+               element: (
+                  <AdminRoute>
+                     <DashJobsHOC />
+                  </AdminRoute>
+               ),
+            },
+            {
+               path: "/editUser/:id",
+               element: (
+                  <AdminRoute>
+                     <EditUserHoc />
+                  </AdminRoute>
+               ),
+            },
+            {
+               path: "/singleUser/:id",
+               element: (
+                  <AdminRoute>
+                     <SingleUserHOC />
                   </AdminRoute>
                ),
             },

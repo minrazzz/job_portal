@@ -20,7 +20,7 @@ const JobsInfo = ({ title, description, location, category, id }) => {
                <div className="category uppercase font-semibold text-[#057E01] dark:text-white">
                   {category}
                </div>
-               <div className="Description text-[#057E01] dark:text-white">
+               <div className="Description text-black dark:text-white">
                   {description}
                </div>
                <div className=" my-2  bg-[#057E01] hover:bg-opacity-80 w-[10%] pl-2 pb-1 rounded-full">

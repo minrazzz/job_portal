@@ -15,7 +15,8 @@ export const singleJobAction = (id) => async (dispatch) => {
          withCredentials: true,
       });
       const data = response.data;
-      dispatch({ type: JOB_LOAD_SINGLE_SUCCESS, payload: data });
+
+      await dispatch({ type: JOB_LOAD_SINGLE_SUCCESS, payload: data });
    } catch (error) {
       dispatch({
          type: JOB_LOAD_SINGLE_FAIL,

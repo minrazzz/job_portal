@@ -28,6 +28,10 @@ const AllUsersComponent = ({
                <span>{email}</span>
             </div>
             <div className="email  text-sm   dark:text-white">
+               <span className="mr-2  text-[#057E01]">Status:</span>
+               <span>{role === 0 ? "Regular User" : "Admin"}</span>
+            </div>
+            <div className="email  text-sm   dark:text-white">
                <span className="mr-2  text-[#057E01]">CreatedAt:</span>
                <span>
                   {moment(createdAt).format("MMMM Do YYYY, h:mm:ss a")}

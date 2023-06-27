@@ -48,7 +48,7 @@ const UsersDashboard = () => {
                All Users
             </h4>
          </div>
-         <div className="ml-[88%] w-full ">
+         <div className="w-full  flex justify-end mr-4 px-3.5 w-full ">
             <Link
                to={`/create/user`}
                className="font-semibold  text-white px-1 rounded-md py-0.5 bg-[#057E01] hover:bg-opacity-80"
