@@ -25,6 +25,9 @@ import UsersDashboard from "./pages/admin/UsersDashboard";
 import EditUser from "./pages/admin/EditUser";
 import SingleUser from "./pages/admin/SingleUser";
 import DashJobs from "./pages/admin/DashJobs";
+import DashCreateJob from "./pages/admin/DashCreateJob";
+import GetAllCategories from "./pages/admin/GetAllCategories";
+import CreateCategory from "./pages/admin/CreateCategory";
 
 function App() {
    const UserDashboardHOC = Common(UserDashboard);
@@ -35,6 +38,9 @@ function App() {
    const EditUserHoc = Common(EditUser);
    const SingleUserHOC = Common(SingleUser);
    const DashJobsHOC = Common(DashJobs);
+   const DashCreateJobHOC = Common(DashCreateJob);
+   const GetAllCategoriesHOC = Common(GetAllCategories);
+   const CreateCategoryHOC = Common(CreateCategory);
 
    const router = createBrowserRouter([
       {
@@ -90,6 +96,31 @@ function App() {
                   </AdminRoute>
                ),
             },
+            {
+               path: "/admin/create/job",
+               element: (
+                  <AdminRoute>
+                     <DashCreateJobHOC />
+                  </AdminRoute>
+               ),
+            },
+            {
+               path: "/admin/category",
+               element: (
+                  <AdminRoute>
+                     <GetAllCategoriesHOC />
+                  </AdminRoute>
+               ),
+            },
+            {
+               path: "/admin/create/category",
+               element: (
+                  <AdminRoute>
+                     <CreateCategoryHOC />
+                  </AdminRoute>
+               ),
+            },
+
             {
                path: "/editUser/:id",
                element: (

@@ -8,15 +8,15 @@ const { validationImage, imageUpload } = require("../utils/utils");
 const addJobs = async (req, res, next) => {
    try {
       const body = req.body;
-      const imageFile = req.files.resume;
+      // const imageFile = req.files.resume;
 
-      if (!validationImage(imageFile.mimetype, res)) {
-         res.status(406).json({
-            success: false,
-            error: "invalid file format",
-         });
-      }
-      const imageFileName = await imageUpload("uploads", imageFile);
+      // if (!validationImage(imageFile.mimetype, res)) {
+      //    res.status(406).json({
+      //       success: false,
+      //       error: "invalid file format",
+      //    });
+      // }
+      // const imageFileName = await imageUpload("uploads", imageFile);
       const job = await new jobModel({
          title: body.title,
          description: body.description,
@@ -24,7 +24,6 @@ const addJobs = async (req, res, next) => {
          location: body.location,
          jobType: body.jobType,
          user: req.user.id,
-         resume: "uploads/" + imageFileName,
       });
 
       await job.save();

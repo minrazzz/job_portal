@@ -4,7 +4,7 @@ export const Footer = () => {
    return (
       <>
          <div>
-            <footer className="Footer bg-[#057E01]  shadow dark:bg-[#1E2936] bg-[#047E01] h-[50%]">
+            <footer className="Footer mt-40 bg-[#057E01]  shadow dark:bg-[#1E2936] bg-[#047E01] h-[50%]">
                <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                   <div className="sm:flex sm:items-center sm:justify-between">
                      <a href="/home" className="flex items-center mb-4 sm:mb-0">
