@@ -13,7 +13,7 @@ const DashJobs = () => {
    }, []);
 
    //    const { keyword } = useParams();
-   const itemsPerPage = 3; // Number of items to display per page
+   const itemsPerPage = 4; // Number of items to display per page
    const [currentPage, setCurrentPage] = useState(1);
 
    // Pagination calculations
@@ -37,7 +37,7 @@ const DashJobs = () => {
    return (
       <>
          <div className="flex flex-col gap-y-5 ">
-            <div className=" flex justify-end mx-2 mt-5">
+            <div className=" flex justify-end mx-2 mt-2">
                <Link
                   className="uppercase px-2 py-1 bg-[#057E01] hover:bg-opacity-80 text-white rounded-md"
                   to={`/admin/create/job`}

@@ -88,7 +88,7 @@ const JobView = () => {
                                  ></div>
                               )}
                            </div>
-                           <div className=" flex justify-center">
+                           <div className="mt-[5%]  flex justify-center">
                               <button
                                  className="bg-[#057E01] text-white rounded-md px-2 py-1"
                                  onClick={applyJob}

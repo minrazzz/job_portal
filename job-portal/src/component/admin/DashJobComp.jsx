@@ -11,7 +11,7 @@ const DashJobComp = ({ title, description, location, category, id }) => {
    return (
       <>
          <div className="px-3 mr-1 dark:bg-[#1E2936] bg-white  rounded-md shadow-md hover:shadow-lg hover:transition-all ">
-            <div className="jobInfo ml-3 pt-2  ">
+            <div className="jobInfo ml-3 pt-1  ">
                <div className="location flex items-center gap-x-1 text-[#057E01]">
                   <i className="fa-solid fa-location-dot"></i>
                   <p className="font-sm text-[#057E01] dark:text-white">
@@ -31,7 +31,7 @@ const DashJobComp = ({ title, description, location, category, id }) => {
                      __html: truncatedDescription,
                   }}
                ></div>
-               <div className=" my-2  flex justify-between">
+               <div className=" mb-1 flex justify-between">
                   <Link
                      to={`/single/dash/job/${id}`}
                      className="text-white font-semibold bg-[#057E01] hover:bg-opacity-80 px-2 py-1 rounded-md  "
