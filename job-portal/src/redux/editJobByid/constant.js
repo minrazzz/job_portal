@@ -1,0 +1,4 @@
+export const EDIT_JOB_REQUEST = "EDIT_JOB_REQUEST";
+export const EDIT_JOB_SUCCESS = "EDIT_JOB_SUCCESS";
+export const EDIT_JOB_FAILURE = "EDIT_JOB_FAILURE";
+export const EDIT_JOB_RESET = "EDIT_JOB_RESET";

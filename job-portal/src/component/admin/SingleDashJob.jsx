@@ -1,11 +1,10 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { applyJobAction, singleJobAction } from "../redux";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { singleJobAction } from "../../redux";
 
-const JobView = () => {
+const SingleDashJob = () => {
    const dispatch = useDispatch();
    const { singleJob, loading } = useSelector((state) => state.singleJob);
    const { id } = useParams();
@@ -14,27 +13,16 @@ const JobView = () => {
       dispatch(singleJobAction(id));
    }, [id]);
 
-   const applyJob = () => {
-      dispatch(
-         applyJobAction({
-            title: singleJob && singleJob.title,
-            description: singleJob && singleJob.description,
-            salary: singleJob && singleJob.salary,
-            location: singleJob && singleJob.location,
-         })
-      );
-   };
-
    return (
       <>
-         <div className="h-screen">
-            <div className="container pt-30px   h-screen">
-               <div className="flex flex-col   mx-auto h-screen    space-y-2 justify-center ">
+         <div className="h-screen ">
+            <div className="container  pt-2 h-full">
+               <div className="flex flex-col   mx-auto h-full sm:h-screen    space-y-2 justify-center ">
                   <div className="flex-1 p-2  ">
                      {loading ? (
                         <div>Loading...</div>
                      ) : (
-                        <div className="mx-auto bg-white h-full max-w-3xl shadow-lg mt-[5%] rounded-lg pb-8">
+                        <div className="mx-auto   mt-1 rounded-lg pb-8">
                            <div className="title my-5 dark:bg-slate-700 dark:rounded-lg pt-5 ">
                               <h1 className="text-center text-[#057E01] text-3xl font-bold dark:text-white uppercase ">
                                  {singleJob && singleJob.title}
@@ -50,11 +38,8 @@ const JobView = () => {
                                           ).format("MMMM Do YYYY, h:mm:ss a")}
                                     </span>
                                  </p>
-                                 <p className="text-center mr-5   text-md font-semibold  ">
-                                    <span className="text-[#057E01]">
-                                       Location:
-                                    </span>
-                                    <span className="ml-1 text-[#7f7f7f]">
+                                 <p className="text-center mr-5 uppercase  text-md font-semibold text-[#7f7f7f] ">
+                                    <span className="">
                                        {singleJob && singleJob.location}
                                     </span>
                                  </p>
@@ -78,7 +63,7 @@ const JobView = () => {
                               </p>{" "}
                            </div>
 
-                           <div className="description text-lg text-center  dark:text-white px-3 py-3 ">
+                           <div className="description text-lg text-center  dark:text-white  ">
                               <p className="font-semibold">Description: </p>
                               {singleJob && (
                                  <div
@@ -87,14 +72,6 @@ const JobView = () => {
                                     }}
                                  ></div>
                               )}
-                           </div>
-                           <div className=" flex justify-center">
-                              <button
-                                 className="bg-[#057E01] text-white rounded-md px-2 py-1"
-                                 onClick={applyJob}
-                              >
-                                 Apply For This Job
-                              </button>
                            </div>
                         </div>
                      )}
@@ -106,4 +83,4 @@ const JobView = () => {
    );
 };
 
-export default JobView;
+export default SingleDashJob;

@@ -117,7 +117,10 @@ const getAllJobs = async (req, res, next) => {
 const getSingleJob = async (req, res, next) => {
    try {
       const id = req.params.id;
-      const job = await jobModel.findById(id);
+      const job = await jobModel
+         .findById(id)
+         .populate("jobType", "jobTypeName")
+         .populate("user", "firstName lastName");
       if (!job) {
          res.status(404).json({
             success: false,
@@ -148,29 +151,29 @@ const editSingleJob = async (req, res, next) => {
          });
       }
 
-      if (req.files && req.files.resume) {
-         //   console.log(job)
-         let imageFileName = null;
-         const imageFile = req.files.resume;
-         // console.log(imageFile)
-         if (!validationImage(imageFile.mimetype, res)) {
-            res.status(401).json({
-               success: false,
-               error: "invalid file format,must be an image file",
-            });
-         }
+      // if (req.files && req.files.resume) {
+      //    //   console.log(job)
+      //    let imageFileName = null;
+      //    const imageFile = req.files.resume;
+      //    // console.log(imageFile)
+      //    if (!validationImage(imageFile.mimetype, res)) {
+      //       res.status(401).json({
+      //          success: false,
+      //          error: "invalid file format,must be an image file",
+      //       });
+      //    }
 
-         fs.unlink(job.resume, function (err) {
-            if (err) {
-               return;
-            }
-         });
+      //    fs.unlink(job.resume, function (err) {
+      //       if (err) {
+      //          return;
+      //       }
+      //    });
 
-         imageFileName = await imageUpload("uploads", imageFile);
-         job.resume = req.files.resume
-            ? `uploads/${imageFileName}`
-            : job.resume;
-      }
+      //    imageFileName = await imageUpload("uploads", imageFile);
+      //    job.resume = req.files.resume
+      //       ? `uploads/${imageFileName}`
+      //       : job.resume;
+      // }
       await job.save();
       return res.status(200).json({
          success: true,

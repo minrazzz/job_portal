@@ -6,7 +6,7 @@ const truncateText = (text, length) => {
    return text.substring(0, length) + ".....";
 };
 
-const JobsInfo = ({ title, description, location, category, id }) => {
+const DashJobComp = ({ title, description, location, category, id }) => {
    const truncatedDescription = truncateText(description, 100);
    return (
       <>
@@ -20,7 +20,7 @@ const JobsInfo = ({ title, description, location, category, id }) => {
                </div>
                <div className="title rounded-md">
                   <h1 className="text-2xl uppercase font-bold text-[#057E01] dark:text-white ">
-                     {truncateText(title, 80)}
+                     {title}
                   </h1>
                </div>
                <div className="category uppercase font-semibold text-[#057E01] dark:text-white">
@@ -31,12 +31,24 @@ const JobsInfo = ({ title, description, location, category, id }) => {
                      __html: truncatedDescription,
                   }}
                ></div>
-               <div className=" my-2   ">
+               <div className=" my-2  flex justify-between">
                   <Link
-                     to={`/single/Job/${id}`}
-                     className="text-white font-semibold bg-[#057E01] hover:bg-opacity-80 px-2 py-1 rounded-md"
+                     to={`/single/dash/job/${id}`}
+                     className="text-white font-semibold bg-[#057E01] hover:bg-opacity-80 px-2 py-1 rounded-md  "
                   >
                      see more
+                  </Link>
+                  <Link
+                     to={`/edit/dash/job/${id}`}
+                     className="text-white font-semibold bg-[#057E01] hover:bg-opacity-80 px-2 py-1 rounded-md "
+                  >
+                     Edit
+                  </Link>
+                  <Link
+                     to={`/delete/dash/job/${id}`}
+                     className="text-white font-semibold bg-[#057E01] hover:bg-opacity-80 px-2 py-1 rounded-md "
+                  >
+                     Delete
                   </Link>
                </div>
             </div>
@@ -45,4 +57,4 @@ const JobsInfo = ({ title, description, location, category, id }) => {
    );
 };
 
-export default JobsInfo;
+export default DashJobComp;
