@@ -15,6 +15,7 @@ import userDeleteReducer from "./deleteUser/deleteUserReducer";
 
 import jobDeleteReducer from "./deleteJob/jobDeleteReducer";
 import jobTypeDeleteReducer from "./deleteJobType/deleteJobTypeReducer";
+import userRegReducer from "./registerUser/userRegReducer";
 
 const rootReducers = combineReducers({
    allJobs: JobReducer,
@@ -31,6 +32,7 @@ const rootReducers = combineReducers({
    deleteUser: userDeleteReducer,
    deleteJob: jobDeleteReducer,
    deleteJobType: jobTypeDeleteReducer,
+   regUser: userRegReducer,
 });
 
 export default rootReducers;

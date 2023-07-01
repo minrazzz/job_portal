@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../redux";
+import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
 export const Login = () => {
    const dispatch = useDispatch();
@@ -94,16 +96,29 @@ export const Login = () => {
                   {error ? error : ""}
                </p>
             </div>
-            <div className="grid place-items-center mt-1 mb-3">
+            <div className="grid place-items-center mt-1 mb-3 gap-4">
                <button
                   className="py-1 w-1/4 bg-[#E8F6F0] text-[#057E01] rounded-md hover:bg-[#BCEAD5] hover:transition-all dark:bg-[#ced6e0] dark:hover:bg-[#b0bdce] dark:text-black"
                   type="submit"
                >
                   Login
                </button>
+               <GoogleLogin
+                  ux_mode="popup"
+                  shape="circle"
+                  text="Sign in with Google"
+                  onSuccess={(credentialResponse) => {
+                     console.log(credentialResponse);
+                  }}
+                  onError={() => {
+                     console.log("Login Failed");
+                  }}
+                  useOneTap
+               />
             </div>
+
             <div className="Register mx-auto text-center flex flex-col gap-1 dark:text-slate-400">
-               <p className="">Already have an account</p>
+               <p className="">Don't have an account ?</p>
                <NavLink
                   className="hover:font-bold hover:transition-all text-[#057E01] dark:text-white"
                   to="/register"

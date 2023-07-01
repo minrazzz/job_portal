@@ -4,6 +4,9 @@ import {
    RouterProvider,
 } from "react-router-dom";
 
+//google signin
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import Home from "./pages/Home";
 
 // import { Login } from "./component/Login";
@@ -33,6 +36,8 @@ import EditDashJob from "./component/admin/EditDashJob";
 import AppliedJobs from "./pages/admin/AppliedJobs";
 
 function App() {
+   const clientId = import.meta.env.VITE_REACT_GOOGLE_CLIENT_ID;
+   console.log(clientId);
    const UserDashboardHOC = Common(UserDashboard);
    const UserJobHistoryHOC = Common(UserJobHistory);
    const UserInfoDashboardHOC = Common(UserInfoDashboard);
@@ -204,7 +209,9 @@ function App() {
          <div className=" dark:bg-[#111827]  main-wrapper min-h-screen max-w-full ">
             <main className=" max-w-screen-xl min-h-screen  mx-auto ">
                <div>
-                  <RouterProvider router={router} />
+                  <GoogleOAuthProvider clientId={clientId}>
+                     <RouterProvider router={router} />
+                  </GoogleOAuthProvider>
                </div>
             </main>
          </div>

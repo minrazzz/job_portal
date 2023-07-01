@@ -1,21 +1,28 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userRegAction } from "../redux";
 
 const nameRegex = /^[a-zA-Z-' ]+$/;
 const passwordRegex =
    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 const initialValues = {
-   fullName: "",
+   firstName: "",
+   lastName: "",
    email: "",
    password: "",
-   confirmPassword: "",
 };
 
 const validationSchema = Yup.object({
-   fullName: Yup.string()
+   firstName: Yup.string()
+      .min(2, "*Name must have at least 2 characters")
+      .matches(nameRegex, "*Please enter a valid name")
+      .max(100, "*Names can't be longer than 100 characters")
+      .required("*Required"),
+   lastName: Yup.string()
       .min(2, "*Name must have at least 2 characters")
       .matches(nameRegex, "*Please enter a valid name")
       .max(100, "*Names can't be longer than 100 characters")
@@ -34,9 +41,13 @@ const validationSchema = Yup.object({
 });
 
 const Register = () => {
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
    const onSubmit = (values) => {
-      // console.log("formike", values);
+      dispatch(userRegAction(values));
+      navigate("/login");
    };
+
    const formik = useFormik({
       initialValues,
       onSubmit,
@@ -57,13 +68,27 @@ const Register = () => {
                <input
                   className="email bg-[#E8F6F0] border-transparent focus:border-transparent focus:ring-0 block w-full  py-2 mb-1 rounded-md px-2 shadow-md dark:bg-white"
                   type="text"
-                  name="fullName"
-                  placeholder="Full Name"
-                  {...formik.getFieldProps("fullName")}
+                  name="firstName"
+                  placeholder="First Name"
+                  {...formik.getFieldProps("firstName")}
                />
-               {formik.touched.fullName && formik.errors.fullName ? (
+               {formik.touched.firstName && formik.errors.firstName ? (
                   <div className="text-red-500 text-sm ">
-                     {formik.errors.fullName}
+                     {formik.errors.firstName}
+                  </div>
+               ) : null}
+            </div>
+            <div className="form-control mb-5 ">
+               <input
+                  className="email bg-[#E8F6F0] border-transparent focus:border-transparent focus:ring-0 block w-full  py-2 mb-1 rounded-md px-2 shadow-md dark:bg-white"
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  {...formik.getFieldProps("lastName")}
+               />
+               {formik.touched.lastName && formik.errors.lastName ? (
+                  <div className="text-red-500 text-sm ">
+                     {formik.errors.lastName}
                   </div>
                ) : null}
             </div>
@@ -123,7 +148,7 @@ const Register = () => {
                </button>
             </div>
             <div className="Register mx-auto text-center flex flex-col gap-1 dark:text-slate-400">
-               <p className="">Don't have an account ?</p>
+               <p className="">Already have an account ?</p>
                <NavLink
                   className="hover:font-bold hover:transition-all text-[#057E01] dark:text-white"
                   to="/login"

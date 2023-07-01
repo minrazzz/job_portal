@@ -1,6 +1,4 @@
 const ErrorResponse = require("../utils/errorResponse");
-const jwt = require("jsonwebtoken");
-
 const { verifyToken } = require("../utils/utils");
 const { userModel } = require("../models/userModel");
 
@@ -13,7 +11,7 @@ const isAuthenticated = async (req, res, next) => {
       }
       const tokenInfo = await verifyToken(token);
       const user = await userModel.findOne({ email: tokenInfo.data.email });
-      console.log(tokenInfo);
+      // console.log(tokenInfo);
 
       if (!user) {
          return next(new ErrorResponse("user not found", 401));

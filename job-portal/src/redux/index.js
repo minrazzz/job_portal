@@ -13,3 +13,4 @@ export * from "./editJobByid/editJobAction";
 export * from "./deleteUser/deleteUserAction";
 export * from "./deleteJob/jobDeleteAction";
 export * from "./deleteJobType/deleteJobTypeAction";
+export * from "./registerUser/userRegAction";
