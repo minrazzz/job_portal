@@ -6,7 +6,7 @@ const truncateText = (text, length) => {
    return text.substring(0, length) + ".....";
 };
 
-const JobHistory = ({ title, description, location, id, category }) => {
+const JobHistory = ({ title, description, location, id, salary }) => {
    const truncatedDescription = truncateText(description, 100);
    return (
       <>
@@ -23,9 +23,9 @@ const JobHistory = ({ title, description, location, id, category }) => {
                </h1>
             </div>
             <div className="category uppercase font-semibold text-[#057E01] dark:text-white">
-               {category}
+               {salary}
             </div>
-            <div className="Description text-md py-1  text-[#057E01] dark:text-white">
+            <div className="Description text-md py-1   dark:text-white">
                <div
                   dangerouslySetInnerHTML={{
                      __html: truncatedDescription,
