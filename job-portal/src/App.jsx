@@ -30,6 +30,7 @@ import GetAllCategories from "./pages/admin/GetAllCategories";
 import CreateCategory from "./pages/admin/CreateCategory";
 import SingleDashJob from "./component/admin/SingleDashJob";
 import EditDashJob from "./component/admin/EditDashJob";
+import AppliedJobs from "./pages/admin/AppliedJobs";
 
 function App() {
    const UserDashboardHOC = Common(UserDashboard);
@@ -45,6 +46,7 @@ function App() {
    const CreateCategoryHOC = Common(CreateCategory);
    const SingleDashJobHOC = Common(SingleDashJob);
    const EditDashJobHOC = Common(EditDashJob);
+   const AppliedJobsHOC = Common(AppliedJobs);
 
    const router = createBrowserRouter([
       {
@@ -154,6 +156,14 @@ function App() {
                element: (
                   <AdminRoute>
                      <SingleUserHOC />
+                  </AdminRoute>
+               ),
+            },
+            {
+               path: "/applied/Jobs/:id",
+               element: (
+                  <AdminRoute>
+                     <AppliedJobsHOC />
                   </AdminRoute>
                ),
             },

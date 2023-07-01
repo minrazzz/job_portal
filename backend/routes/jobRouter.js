@@ -4,6 +4,7 @@ const {
    getAllJobs,
    getSingleJob,
    editSingleJob,
+   deleteJob,
 } = require("../handlers/jobHandler");
 const { isAuthenticated, isAdmin } = require("../middleware/authenticate");
 const { createUserJobsHistory } = require("../handlers/userInfoHandler");
@@ -19,5 +20,7 @@ Router.get("/get/single-job/:id", getSingleJob);
 Router.put("/edit/single-job/:id", isAuthenticated, isAdmin, editSingleJob);
 // api/user/jobhistory
 Router.post("/user/jobhistory", isAuthenticated, createUserJobsHistory);
+//api/admin/job/delete/:id
+Router.delete("/admin/job/delete/:id", isAuthenticated, isAdmin, deleteJob);
 
 module.exports = Router;

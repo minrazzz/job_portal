@@ -11,6 +11,11 @@ import createJobReducer from "./createJob/createJobReducer";
 import createCatReducer from "./createJobType/createCatReducer";
 import editJobReducer from "./editJobByid/editJobReducer";
 
+import userDeleteReducer from "./deleteUser/deleteUserReducer";
+
+import jobDeleteReducer from "./deleteJob/jobDeleteReducer";
+import jobTypeDeleteReducer from "./deleteJobType/deleteJobTypeReducer";
+
 const rootReducers = combineReducers({
    allJobs: JobReducer,
    jobType: JobTypeReducer,
@@ -23,6 +28,9 @@ const rootReducers = combineReducers({
    createJob: createJobReducer,
    createCat: createCatReducer,
    editJob: editJobReducer,
+   deleteUser: userDeleteReducer,
+   deleteJob: jobDeleteReducer,
+   deleteJobType: jobTypeDeleteReducer,
 });
 
 export default rootReducers;

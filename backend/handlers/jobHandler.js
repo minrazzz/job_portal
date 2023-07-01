@@ -185,9 +185,20 @@ const editSingleJob = async (req, res, next) => {
    }
 };
 
+///api/admin/job/delete/:id
+const deleteJob = async (req, res, next) => {
+   const { id } = req.params;
+   const job = await jobModel.findByIdAndDelete(id);
+   res.status(200).json({
+      success: true,
+      message: "job delete successfully",
+   });
+};
+
 module.exports = {
    addJobs,
    getAllJobs,
    getSingleJob,
    editSingleJob,
+   deleteJob,
 };

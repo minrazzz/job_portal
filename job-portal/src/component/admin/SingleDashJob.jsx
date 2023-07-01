@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { singleJobAction } from "../../redux";
+import { jobDeleteAction, singleJobAction } from "../../redux";
 
 const SingleDashJob = () => {
    const dispatch = useDispatch();
    const { singleJob, loading } = useSelector((state) => state.singleJob);
    const { id } = useParams();
+   const navigate = useNavigate();
 
    useEffect(() => {
       dispatch(singleJobAction(id));
    }, [id]);
+
+   const handleDelete = () => {
+      dispatch(jobDeleteAction(id));
+      navigate("/admin/jobs");
+   };
 
    return (
       <>
@@ -22,7 +28,7 @@ const SingleDashJob = () => {
                      {loading ? (
                         <div>Loading...</div>
                      ) : (
-                        <div className="mx-auto   mt-1 rounded-lg pb-8">
+                        <div className="mx-auto    mt-1 rounded-lg pb-8">
                            <div className="title my-5 dark:bg-slate-700 dark:rounded-lg pt-5 ">
                               <h1 className="text-center text-[#057E01] text-3xl font-bold dark:text-white uppercase ">
                                  {singleJob && singleJob.title}
@@ -54,13 +60,17 @@ const SingleDashJob = () => {
                                  </span>
                               </p>{" "}
                            </div>
-                           <div className="introduction  dark:text-white text-lg font-semibold">
-                              <p className="pl-2 mx-[20%]">
-                                 Category:{" "}
-                                 {singleJob && singleJob.jobType
-                                    ? singleJob.jobType.jobTypeName
-                                    : "No category"}
-                              </p>{" "}
+                           <div className="introduction  dark:text-white text-lg ">
+                              <p className="pl-2  mx-[20%]">
+                                 <span className="font-semibold">
+                                    Category:{" "}
+                                 </span>
+                                 <span className="">
+                                    {singleJob && singleJob.jobType
+                                       ? singleJob.jobType.jobTypeName
+                                       : "No category"}
+                                 </span>{" "}
+                              </p>
                            </div>
 
                            <div className="description text-lg text-center  dark:text-white  ">
@@ -72,6 +82,18 @@ const SingleDashJob = () => {
                                     }}
                                  ></div>
                               )}
+                           </div>
+                           <div className="text-center ">
+                              <Link
+                                 className="bg-[#057E01] px-2 py-1 rounded-sm text-white font-semibold"
+                                 onClick={() => {
+                                    window.confirm("Are you sure")
+                                       ? handleDelete()
+                                       : "";
+                                 }}
+                              >
+                                 Delete
+                              </Link>
                            </div>
                         </div>
                      )}

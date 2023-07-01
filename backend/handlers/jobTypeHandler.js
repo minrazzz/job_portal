@@ -60,7 +60,7 @@ const deleteJobType = async (req, res, next) => {
 
       return res.status(200).json({
          success: true,
-         jobT,
+         message: "category deleted successfully",
       });
    } catch (error) {
       console.log(error);

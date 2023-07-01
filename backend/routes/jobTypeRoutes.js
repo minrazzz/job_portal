@@ -14,6 +14,7 @@ Router.post("/type/create", isAuthenticated, isAdmin, createJobType);
 Router.get("/type/jobs", allJobsType);
 // api/type/update/id
 Router.put("/type/update/:id", isAuthenticated, isAdmin, updateJobType);
+// api/type/delete/:id
 Router.delete("/type/delete/:id", isAuthenticated, isAdmin, deleteJobType);
 
 module.exports = Router;

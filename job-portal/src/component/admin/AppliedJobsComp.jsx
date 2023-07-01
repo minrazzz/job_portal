@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const truncateText = (text, length) => {
    if (text.length <= length) return text;
    return text.substring(0, length) + ".....";
 };
 
-const JobHistory = ({ title, description, location, id, category }) => {
+const AppliedJobsComp = ({ title, description, salary, location }) => {
    const truncatedDescription = truncateText(description, 100);
    return (
       <>
@@ -23,9 +22,9 @@ const JobHistory = ({ title, description, location, id, category }) => {
                </h1>
             </div>
             <div className="category uppercase font-semibold text-[#057E01] dark:text-white">
-               {category}
+               {salary}
             </div>
-            <div className="Description text-md py-1  text-[#057E01] dark:text-white">
+            <div className="Description text-md    dark:text-white">
                <div
                   dangerouslySetInnerHTML={{
                      __html: truncatedDescription,
@@ -37,4 +36,4 @@ const JobHistory = ({ title, description, location, id, category }) => {
    );
 };
 
-export default JobHistory;
+export default AppliedJobsComp;

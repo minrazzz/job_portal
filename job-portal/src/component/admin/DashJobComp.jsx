@@ -44,12 +44,6 @@ const DashJobComp = ({ title, description, location, category, id }) => {
                   >
                      Edit
                   </Link>
-                  <Link
-                     to={`/delete/dash/job/${id}`}
-                     className="text-white font-semibold bg-[#057E01] hover:bg-opacity-80 px-2 py-1 rounded-md "
-                  >
-                     Delete
-                  </Link>
                </div>
             </div>
          </div>

@@ -46,26 +46,16 @@ const AllUsersComponent = ({
                      see more
                   </Link>
                </div>
-               {
-                  <>
-                     <div className="   hover:bg-opacity-80  rounded-md ">
-                        <Link
-                           to={`/editUser/${id}`}
-                           className=" font-semibold text-sm  text-white px-2 rounded-md py-0.5 bg-[#057E01] hover:bg-opacity-80"
-                        >
-                           Edit User
-                        </Link>
-                     </div>
-                     <div className="rounded-md ">
-                        <Link
-                           to={`/deleteUser/${id}`}
-                           className=" font-semibold text-sm  text-white px-2 rounded-md py-0.5 bg-[#057E01] hover:bg-opacity-80"
-                        >
-                           Delete User
-                        </Link>
-                     </div>
-                  </>
-               }
+               {role === 0 && (
+                  <div>
+                     <Link
+                        to={`/applied/Jobs/${id}`}
+                        className="font-semibold text-sm  text-white px-2 rounded-md py-0.5 bg-[#057E01] hover:bg-opacity-80"
+                     >
+                        Applied Jobs
+                     </Link>
+                  </div>
+               )}
             </div>
          </div>
       </>

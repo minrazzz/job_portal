@@ -10,3 +10,6 @@ export * from "./editUsers/editUserAction";
 export * from "./singleUser/singleUserAction";
 export * from "./createJob/createJobAction";
 export * from "./editJobByid/editJobAction";
+export * from "./deleteUser/deleteUserAction";
+export * from "./deleteJob/jobDeleteAction";
+export * from "./deleteJobType/deleteJobTypeAction";
