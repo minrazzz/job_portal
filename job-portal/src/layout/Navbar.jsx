@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 
 const Navbar = () => {
-   const { userInfo } = useSelector((state) => state.login);
+   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
    const navigate = useNavigate();
    const [theme, setTheme] = useState(
       localStorage.getItem("mernTheme") ?? "light"
@@ -73,6 +73,30 @@ const Navbar = () => {
                            onClick={() => logout()}
                         >
                            Logout
+                        </Link>
+                     </div>
+                  </>
+               )}
+               {userInfo && userInfo.role === 1 && (
+                  <>
+                     <div className="links flex gap-3">
+                        <Link
+                           className="text-white hover:font-semibold hover:transition-all"
+                           to="/admin/Dashboard"
+                        >
+                           AdminDashboard
+                        </Link>
+                     </div>
+                  </>
+               )}
+               {userInfo && userInfo.role === 0 && (
+                  <>
+                     <div className="links flex gap-3">
+                        <Link
+                           className="text-white hover:font-semibold hover:transition-all"
+                           to="/user/dashboard"
+                        >
+                           UserDashboard
                         </Link>
                      </div>
                   </>

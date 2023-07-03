@@ -72,6 +72,11 @@ const userSchema = new mongoose.Schema(
       token: {
          type: String,
       },
+      type: {
+         type: String,
+         enum: ["normal", "google"],
+         default: "normal",
+      },
    },
    { timestamps: true }
 );

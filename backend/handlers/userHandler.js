@@ -15,6 +15,7 @@ const userRegister = async (req, res, next) => {
          email: body.email,
          password: body.password,
          role: body.role,
+         type: "normal",
       });
       await user.save();
       res.status(201).json({
@@ -61,6 +62,46 @@ const userLogin = async (req, res, next) => {
    }
 };
 
+//google-login
+const googleLogin = async (req, res, next) => {
+   try {
+      const body = req.body;
+
+      let user = await userModel.findOne({ email: body.email });
+      if (user && user.type === "normal") {
+         return next(new ErrorResponse("Email is already registered!", 400));
+      }
+
+      if (!user) {
+         user = new userModel({
+            firstName: body.firstName,
+            lastName: body.lastName,
+            email: body.email,
+            password: body.googleId,
+            role: body.role,
+            type: "google",
+         });
+      }
+      // createtoken;
+      const token = await createToken({
+         data: {
+            user_id: user._id,
+            name: user.firstName,
+            email: user.email,
+         },
+      });
+      user.token = token;
+      await user.save();
+      res.cookie("auth ", token, { maxAge: 60 * 60 * 1000 });
+      res.json({
+         success: true,
+         role: user.role,
+      });
+   } catch (error) {
+      console.log(error);
+   }
+};
+
 //Logout
 const userLogout = (req, res) => {
    res.clearCookie("auth");
@@ -97,4 +138,5 @@ module.exports = {
    userLogin,
    userLogout,
    userProfile,
+   googleLogin,
 };

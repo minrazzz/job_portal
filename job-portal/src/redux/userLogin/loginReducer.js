@@ -11,7 +11,6 @@ const storedUserInfo = localStorage.getItem("userInfo")
 
 const loginInitialState = {
    userInfo: storedUserInfo,
-
    error: "",
 };
 

@@ -2,16 +2,27 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginAction } from "../redux";
+import { googleLoginAction, loginAction } from "../redux";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 
 export const Login = () => {
    const dispatch = useDispatch();
    const { isAuthenticated, userInfo } = useSelector((state) => state.login);
+   const userInfos = JSON.parse(localStorage.getItem("userInfo"));
+   const { errors, gUSer, authenticated } = useSelector(
+      (state) => state.googleLogin
+   );
+   console.log(gUSer);
+
    const [error, setError] = useState(null);
    const navigate = useNavigate();
    const [passwordPreview, setPasswordPreview] = useState(false);
+   //google login
+   const [googleUser, setGoogleUser] = useState(null);
+   // console.log(googleUser);
+
+   //normal login
    const [input, setInput] = useState({
       email: "",
       password: "",
@@ -36,15 +47,46 @@ export const Login = () => {
    };
 
    useEffect(() => {
-      // console.log(isAuthenticated);
-      if (isAuthenticated) {
-         if (userInfo.role === 1) {
+      if (googleUser) dispatch(googleLoginAction(googleUser));
+   }, [googleUser]);
+
+   useEffect(() => {
+      if (errors) {
+         return setError("Email is already registered");
+      }
+   }, [googleUser]);
+
+   // useEffect(() => {
+   //    // console.log(isAuthenticated);
+   //    if (isAuthenticated) {
+   //       if (userInfo.role === 1) {
+   //          navigate("/admin/dashboard");
+   //       } else {
+   //          navigate("/user/dashboard");
+   //       }
+   //    }
+   // }, [isAuthenticated]);
+
+   // useEffect(() => {
+   //    // console.log(isAuthenticated);
+   //    if (authenticated) {
+   //       if (gUSer.role === 1) {
+   //          navigate("/admin/dashboard");
+   //       } else {
+   //          navigate("/user/dashboard");
+   //       }
+   //    }
+   // }, [authenticated]);
+
+   useEffect(() => {
+      if (userInfos) {
+         if (userInfos.role === 1) {
             navigate("/admin/dashboard");
          } else {
             navigate("/user/dashboard");
          }
       }
-   }, [isAuthenticated]);
+   }, [userInfos]);
 
    // useEffect(() => {
    //    console.log(userInfo); // Log the updated userInfo object
@@ -108,7 +150,16 @@ export const Login = () => {
                   shape="circle"
                   text="Sign in with Google"
                   onSuccess={(credentialResponse) => {
-                     console.log(credentialResponse);
+                     if (credentialResponse) {
+                        var decoded = jwt_decode(credentialResponse.credential);
+
+                        setGoogleUser({
+                           firstName: decoded.given_name,
+                           lastName: decoded.family_name,
+                           email: decoded.email,
+                           googleId: decoded.sub,
+                        });
+                     }
                   }}
                   onError={() => {
                      console.log("Login Failed");
